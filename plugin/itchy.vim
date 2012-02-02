@@ -16,6 +16,9 @@ endif
 if !exists('g:itchy_buffer_suffix')
   let g:itchy_buffer_suffix = ''
 endif
+if !exists('g:itchy_startup')
+  let g:itchy_startup = 0
+endif
 
 let s:buffer_number = 1
 
@@ -38,5 +41,9 @@ function! s:new_buffer(...)
   setlocal noswapfile
   setlocal buflisted
 endfunction
+
+if g:itchy_startup == 1
+  autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer() | endif
+endif
 
 command! -nargs=? Scratch call s:new_buffer(<f-args>)
