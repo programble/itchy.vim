@@ -1,0 +1,66 @@
+*itchy.txt* Scratch buffers for Vim
+                                                                      *itchy*
+
+                                    Itchy                                   ~
+                           Scratch buffers for Vim                          ~
+
+
+=============================================================================
+CONTENTS                                                     *itchy-contents*
+
+1. Introduction ........................................ |itchy-introduction|
+2. Commands ............................................ |itchy-commands|
+3. Options ............................................. |itchy-options|
+4. License ............................................. |itchy-license|
+
+
+=============================================================================
+1. Introduction                                          *itchy-introduction*
+
+Itchy is a simple plugin that provides scratch buffers for Vim.
+
+
+=============================================================================
+2. Commands                                                  *itchy-commands*
+
+:Scratch [name]                                                    *:Scratch*
+
+Opens a new scratch buffer. Will open in a new window if the current buffer
+is modified. If [name] is not given, the buffer will be assigned a number
+starting at 1. Buffers are named using |'itchy_buffer_prefix'| and
+|'itchy_buffer_suffix'|.
+
+
+=============================================================================
+3. Options                                                    *itchy-options*
+
+                                                      *'itchy_buffer_prefix'*
+This will be prefixed on the buffer name of all scratch buffers. >
+    let g:itchy_buffer_prefix='Scratch-'
+<
+
+                                                      *'itchy_buffer_suffix'*
+This will be suffixed on the buffer name of all scratch buffers. >
+    let g:itchy_buffer_suffix=''
+<
+
+                                                            *'itchy_startup'*
+If enabled, a new scratch buffer will be created when Vim starts if no files
+were opened. >
+    let g:itchy_startup=0
+<
+
+                                                             *'itchy_loaded'*
+This option will prevent Itchy from loading. >
+    let g:itchy_loaded=0
+<
+
+
+=============================================================================
+4. License                                                    *itchy-license*
+
+Itchy is released under the ISC License.
+
+
+=============================================================================
+vim:tw=78:ts=8:ft=help:norl:
