@@ -9,7 +9,7 @@ recommended:
 
 ```
 cd ~/.vim/bundle
-git clone https://github.com/programble/itchy.vim
+git clone https://github.com/programble/itchy.vim.git
 ```
 
 ## Usage
