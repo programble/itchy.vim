@@ -2,6 +2,21 @@
 
 Scratch buffers for Vim
 
+## Install
+
+Installation with [Pathogen](https://github.com/tpope/vim-pathogen) is
+recommended:
+
+```
+cd ~/.vim/bundle
+git clone https://github.com/programble/itchy.vim
+```
+
+## Usage
+
+To create a new scratch buffer, run `:Scratch`. For more information, see
+`doc/itchy.txt`.
+
 ## License
 
 Copyright (c) 2011, Curtis McEnroe <programble@gmail.com>
