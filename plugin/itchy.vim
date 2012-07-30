@@ -2,7 +2,7 @@
 " 
 " Author: Curtis McEnroe
 " Version: 0.1.0
-" Date: February 2 2012
+" Date: 30 Jul 2012
 " License: ISC
 
 if exists('g:itchy_loaded') || &cp
@@ -48,13 +48,22 @@ function! s:should_split_horiz()
 endf
 
 function! s:new_buffer(...)
+  " Figure out the filetype
   if a:0 == 0
-    let buffer_name = g:itchy_buffer_prefix . s:buffer_number . g:itchy_buffer_suffix
-    let s:buffer_number += 1
+    let file_type = ''
+    let ft_command = ''
   else
-    let buffer_name = g:itchy_buffer_prefix . a:1 . g:itchy_buffer_suffix
-  endif
+    let file_type = a:1
+    if file_type == '.'
+      " . means use the current filetype
+      let file_type = &filetype
+    endif
 
+    let ft_command = 'setlocal filetype='.file_type
+    let file_type = file_type .'-'
+  end
+
+  " Determine the split method
   if &modified || g:itchy_always_split
     if s:should_split_horiz()
       let edit_cmd = 'new'
@@ -65,18 +74,21 @@ function! s:new_buffer(...)
     let edit_cmd = 'edit'
   endif
 
-  exe edit_cmd .' '. buffer_name
+	exe printf('%s %s%s%i%s', edit_cmd, g:itchy_buffer_prefix, file_type, s:buffer_number, g:itchy_buffer_suffix)
+  let s:buffer_number += 1
 
+  " Scratch buffer settings
   setlocal buftype=nofile
   setlocal bufhidden=hide
   setlocal noswapfile
   setlocal buflisted
+	exe ft_command
 endfunction
 
 if g:itchy_startup == 1
   autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer() | endif
 endif
 
-command! -nargs=? Scratch call s:new_buffer(<f-args>)
+command! -nargs=? -complete=filetype Scratch call s:new_buffer(<f-args>)
 
 " vim:et:ts=2 sw=2:
