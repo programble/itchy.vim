@@ -27,7 +27,7 @@ if !exists("g:itchy_split_direction")
 endif
 
 
-let s:buffer_number = 1
+let s:scratch_number = 1
 
 " Is the current window narrowly shaped?
 function! s:is_narrow()
@@ -74,8 +74,8 @@ function! s:new_buffer(...)
     let edit_cmd = 'edit'
   endif
 
-	exe printf('%s %s%s%i%s', edit_cmd, g:itchy_buffer_prefix, file_type, s:buffer_number, g:itchy_buffer_suffix)
-  let s:buffer_number += 1
+	exe printf('%s %s%s%i%s', edit_cmd, g:itchy_buffer_prefix, file_type, s:scratch_number, g:itchy_buffer_suffix)
+  let s:scratch_number += 1
 
   " Scratch buffer settings
   setlocal buftype=nofile
