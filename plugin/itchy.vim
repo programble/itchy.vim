@@ -19,8 +19,33 @@ endif
 if !exists('g:itchy_startup')
   let g:itchy_startup = 0
 endif
+if !exists("g:itchy_always_split")
+    let g:itchy_always_split = 0
+endif
+if !exists("g:itchy_split_direction")
+    let g:itchy_split_direction = 0
+endif
+
 
 let s:buffer_number = 1
+
+" Is the current window narrowly shaped?
+function! s:is_narrow()
+    return winheight(0)*2 > winwidth(0)
+endf
+
+" Should the split be opened horizontally?
+" itchy_split_direction can mean:
+"   0: guess the direction
+"   1: vertical
+"   2: horizontal
+function! s:should_split_horiz()
+  if g:itchy_split_direction == 0
+    return s:is_narrow()
+  else
+    return g:itchy_split_direction == 2
+  endif
+endf
 
 function! s:new_buffer(...)
   if a:0 == 0
@@ -30,11 +55,17 @@ function! s:new_buffer(...)
     let buffer_name = g:itchy_buffer_prefix . a:1 . g:itchy_buffer_suffix
   endif
 
-  if &modified
-    exe "new " . buffer_name
+  if &modified || g:itchy_always_split
+    if s:should_split_horiz()
+      let edit_cmd = 'new'
+    else
+      let edit_cmd = 'vnew'
+    endif
   else
-    exe "edit " . buffer_name
+    let edit_cmd = 'edit'
   endif
+
+  exe edit_cmd .' '. buffer_name
 
   setlocal buftype=nofile
   setlocal bufhidden=hide
@@ -47,3 +78,5 @@ if g:itchy_startup == 1
 endif
 
 command! -nargs=? Scratch call s:new_buffer(<f-args>)
+
+" vim:et:ts=2 sw=2:
