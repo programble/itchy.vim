@@ -17,18 +17,22 @@ CONTENTS                                                     *itchy-contents*
 =============================================================================
 1. Introduction                                          *itchy-introduction*
 
-Itchy is a simple plugin that provides scratch buffers for Vim.
+Itchy provides scratch buffers for Vim: Buffers that aren't connected to a 
+file so Vim won't ask you to save them. Scratch buffers are useful to store 
+bits of text as you're editing or to dump text from another application.
 
 
 =============================================================================
 2. Commands                                                  *itchy-commands*
 
-:Scratch [name]                                                    *:Scratch*
+:Scratch [filetype]                                                *:Scratch*
 
-Opens a new scratch buffer. Will open in a new window if the current buffer
-is modified. If [name] is not given, the buffer will be assigned a number
-starting at 1. Buffers are named using |'itchy_buffer_prefix'| and
-|'itchy_buffer_suffix'|.
+Opens a new scratch buffer. Will open in a new window if the current buffer is
+modified. The buffer will be assigned a number starting at 1. The optional
+parameter [filetype] sets the filetype of the scratch buffer and is included
+in the buffer name. If |.| is used as [filetype], the current buffer's
+filetype will be used instead. Buffers are named using |'itchy_buffer_prefix'|
+and |'itchy_buffer_suffix'|.
 
 
 =============================================================================
@@ -50,6 +54,21 @@ were opened. >
     let g:itchy_startup=0
 <
 
+                                                       *'itchy_always_split'*
+If enabled, itchy will always split to open the scratch buffer. >
+    let g:itchy_always_split=0
+<
+
+                                                    *'itchy_split_direction'*
+Three options:
+ 0: itchy chooses the split direction (a narrow window is split horizontally
+    and a wide window is split vertically).
+ 1: When itchy splits to open the scratch buffer, split vertically.
+ 2: When itchy splits to open the scratch buffer, split horizontally.
+>
+    let g:itchy_split_direction=0
+<
+
                                                              *'itchy_loaded'*
 This option will prevent Itchy from loading. >
     let g:itchy_loaded=0
@@ -59,7 +78,8 @@ This option will prevent Itchy from loading. >
 =============================================================================
 4. License                                                    *itchy-license*
 
-Itchy is released under the ISC License.
+Itchy is released under the ISC License:
+    http://opensource.org/licenses/ISC
 
 
 =============================================================================
