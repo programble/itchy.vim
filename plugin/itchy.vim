@@ -89,6 +89,10 @@ if g:itchy_startup == 1
   autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer() | endif
 endif
 
-command! -nargs=? -complete=filetype Scratch call s:new_buffer(<f-args>)
+if version >= 703
+  command! -nargs=? -complete=filetype Scratch call s:new_buffer(<f-args>)
+else
+  command! -nargs=? Scratch call s:new_buffer(<f-args>)
+endif
 
 " vim:et:ts=2 sw=2:
