@@ -74,7 +74,7 @@ function! s:new_buffer(...)
     let edit_cmd = 'edit'
   endif
 
-	exe printf('%s %s%s%i%s', edit_cmd, g:itchy_buffer_prefix, file_type, s:scratch_number, g:itchy_buffer_suffix)
+  exe printf('%s %s%s%i%s', edit_cmd, g:itchy_buffer_prefix, file_type, s:scratch_number, g:itchy_buffer_suffix)
   let s:scratch_number += 1
 
   " Scratch buffer settings
@@ -82,7 +82,7 @@ function! s:new_buffer(...)
   setlocal bufhidden=hide
   setlocal noswapfile
   setlocal buflisted
-	exe ft_command
+  exe ft_command
 endfunction
 
 if g:itchy_startup == 1
