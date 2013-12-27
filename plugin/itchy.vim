@@ -80,7 +80,15 @@ function! s:new_buffer(force_split, ...)
   setlocal noswapfile
   setlocal buflisted
 	exe ft_command
+  command! -buffer -bang -nargs=+ -complete=file Saveas call s:unscratch() | exec 'saveas<bang> '. <f-args> | delcommand Saveas
 endfunction
+
+function! s:unscratch()
+  setlocal buftype&
+  setlocal bufhidden&
+  setlocal swapfile&
+  setlocal buflisted&
+endf
 
 command! -nargs=? -complete=filetype Scratch call s:new_buffer(g:itchy_always_split, <f-args>)
 command! -nargs=? -complete=filetype ScratchNoSplit call s:new_buffer(0, <f-args>)

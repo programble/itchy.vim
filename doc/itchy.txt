@@ -55,6 +55,11 @@ single instance of vim and opens a scratch buffer if no files are passed: >
     }
 <
 
+:Saveas[!] {file}                                        *itchy-:Saveas*
+
+Write buffer contents to {file} and edit it (buffer is no longer a scratch
+buffer). Writing uses the same semantics as |:saveas|.
+
 =============================================================================
 Options                                                       *itchy-options*
 
