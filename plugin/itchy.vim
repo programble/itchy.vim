@@ -16,9 +16,6 @@ endif
 if !exists('g:itchy_buffer_suffix')
   let g:itchy_buffer_suffix = ''
 endif
-if !exists('g:itchy_startup')
-  let g:itchy_startup = 0
-endif
 if !exists("g:itchy_always_split")
     let g:itchy_always_split = 0
 endif
@@ -85,10 +82,7 @@ function! s:new_buffer(force_split, ...)
 	exe ft_command
 endfunction
 
-if g:itchy_startup == 1
-  autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer(0) | endif
-endif
-
 command! -nargs=? -complete=filetype Scratch call s:new_buffer(g:itchy_always_split, <f-args>)
+command! -nargs=? -complete=filetype ScratchNoSplit call s:new_buffer(0, <f-args>)
 
 " vim:et:ts=2 sw=2:

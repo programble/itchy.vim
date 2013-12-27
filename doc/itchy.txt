@@ -34,6 +34,26 @@ in the buffer name. If |.| is used as [filetype], the current buffer's
 filetype will be used instead. Buffers are named using |'itchy_buffer_prefix'|
 and |'itchy_buffer_suffix'|.
 
+:ScratchNoSplit [filetype]                                  *:ScratchNoSplit*
+
+Open a new scratch buffer but ignore itchy_always_split. Useful to open vim
+with a scratch window. For example, define a bash command vv that uses a
+single instance of vim and opens a scratch buffer if no files are passed: >
+    function __default_to_scratch
+    {
+        args=$*
+        if [ $# -lt 1 ] ; then
+            args="+ScratchNoSplit"
+        else
+            args="--remote-silent $args"
+        fi
+        echo $args
+    }
+    function vv
+    {
+        vim --servername VIM `__default_to_scratch $*` ;
+    }
+<
 
 =============================================================================
 Options                                                       *itchy-options*
@@ -47,14 +67,6 @@ This will be prefixed on the buffer name of all scratch buffers. >
 This will be suffixed on the buffer name of all scratch buffers. >
     let g:itchy_buffer_suffix=''
 <
-
-                                                            *'itchy_startup'*
-If enabled, a new scratch buffer will be created when Vim starts if no files
-were opened. >
-    let g:itchy_startup=0
-<
-If this issue causes conflicts with other plugins, see some solutions in
-|itchy-other-plugins|.
 
                                                        *'itchy_always_split'*
 If enabled, itchy will always split to open the scratch buffer. >
