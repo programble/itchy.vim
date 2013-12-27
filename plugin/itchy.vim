@@ -47,13 +47,13 @@ function! s:should_split_horiz()
   endif
 endf
 
-function! s:new_buffer(...)
+function! s:new_buffer(force_split, ...)
   " Figure out the filetype
-  if a:0 == 0
+  if a:0 <= 1
     let file_type = ''
     let ft_command = ''
   else
-    let file_type = a:1
+    let file_type = a:2
     if file_type == '.'
       " . means use the current filetype
       let file_type = &filetype
@@ -64,7 +64,7 @@ function! s:new_buffer(...)
   end
 
   " Determine the split method
-  if &modified || g:itchy_always_split
+  if &modified || a:force_split
     if s:should_split_horiz()
       let edit_cmd = 'new'
     else
@@ -86,9 +86,9 @@ function! s:new_buffer(...)
 endfunction
 
 if g:itchy_startup == 1
-  autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer() | endif
+  autocmd VimEnter * if argc() == 0 | silent! call s:new_buffer(0) | endif
 endif
 
-command! -nargs=? -complete=filetype Scratch call s:new_buffer(<f-args>)
+command! -nargs=? -complete=filetype Scratch call s:new_buffer(g:itchy_always_split, <f-args>)
 
 " vim:et:ts=2 sw=2:
