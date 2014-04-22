@@ -8,14 +8,14 @@
 =============================================================================
 CONTENTS                                                     *itchy-contents*
 
-1. Introduction ........................................ |itchy-introduction|
-2. Commands ............................................ |itchy-commands|
-3. Options ............................................. |itchy-options|
-4. License ............................................. |itchy-license|
+Introduction ........................................... |itchy-introduction|
+Commands ............................................... |itchy-commands|
+Options ................................................ |itchy-options|
+License ................................................ |itchy-license|
 
 
 =============================================================================
-1. Introduction                                          *itchy-introduction*
+Introduction                                             *itchy-introduction*
 
 Itchy provides scratch buffers for Vim: Buffers that aren't connected to a 
 file so Vim won't ask you to save them. Scratch buffers are useful to store 
@@ -23,7 +23,7 @@ bits of text as you're editing or to dump text from another application.
 
 
 =============================================================================
-2. Commands                                                  *itchy-commands*
+Commands                                                     *itchy-commands*
 
 :Scratch [filetype]                                                *:Scratch*
 
@@ -34,9 +34,34 @@ in the buffer name. If |.| is used as [filetype], the current buffer's
 filetype will be used instead. Buffers are named using |'itchy_buffer_prefix'|
 and |'itchy_buffer_suffix'|.
 
+:ScratchNoSplit [filetype]                                  *:ScratchNoSplit*
+
+Open a new scratch buffer but ignore itchy_always_split. Useful to open vim
+with a scratch window. For example, define a bash command vv that uses a
+single instance of vim and opens a scratch buffer if no files are passed: >
+    function __default_to_scratch
+    {
+        args=$*
+        if [ $# -lt 1 ] ; then
+            args="+ScratchNoSplit"
+        else
+            args="--remote-silent $args"
+        fi
+        echo $args
+    }
+    function vv
+    {
+        vim --servername VIM `__default_to_scratch $*` ;
+    }
+<
+
+:Saveas[!] {file}                                        *itchy-:Saveas*
+
+Write buffer contents to {file} and edit it (buffer is no longer a scratch
+buffer). Writing uses the same semantics as |:saveas|.
 
 =============================================================================
-3. Options                                                    *itchy-options*
+Options                                                       *itchy-options*
 
                                                       *'itchy_buffer_prefix'*
 This will be prefixed on the buffer name of all scratch buffers. >
@@ -46,12 +71,6 @@ This will be prefixed on the buffer name of all scratch buffers. >
                                                       *'itchy_buffer_suffix'*
 This will be suffixed on the buffer name of all scratch buffers. >
     let g:itchy_buffer_suffix=''
-<
-
-                                                            *'itchy_startup'*
-If enabled, a new scratch buffer will be created when Vim starts if no files
-were opened. >
-    let g:itchy_startup=0
 <
 
                                                        *'itchy_always_split'*
@@ -74,9 +93,19 @@ This option will prevent Itchy from loading. >
     let g:itchy_loaded=0
 <
 
+=============================================================================
+Conflicts with other plugins                             *itchy-other-plugins*
+
+                                                             *'itchy-ctrlp'*
+CtrlP~
+If you use CtrlP and dislike its default no-reuse behavior (where it doesn't
+open files in scratch buffer windows). You can disable that behavior for all
+itchy buffers with |g:ctrlp_reuse_window|. >
+    let g:ctrlp_reuse_window = 'Scratch'
+<
 
 =============================================================================
-4. License                                                    *itchy-license*
+License                                                       *itchy-license*
 
 Itchy is released under the ISC License:
     http://opensource.org/licenses/ISC
