@@ -96,4 +96,9 @@ endf
 command! -nargs=? -complete=filetype Scratch call s:new_buffer(g:itchy_always_split, <f-args>)
 command! -nargs=? -complete=filetype ScratchNoSplit call s:new_buffer(0, <f-args>)
 
+" Open a Scratch buffer
+nnoremap <Plug>(itchy-open-scratch) :Scratch<CR>
+" Open a Scratch buffer of the same filetype as the current buffer.
+nnoremap <Plug>(itchy-open-same-filetype-scratch) :exec 'Scratch '. &filetype<CR>
+
 " vim:et:ts=2 sw=2:

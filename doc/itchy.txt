@@ -61,6 +61,17 @@ Write buffer contents to {file} and edit it (buffer is no longer a scratch
 buffer). Writing uses the same semantics as |:saveas|.
 
 =============================================================================
+Mappings                                                     *itchy-mappings*
+
+Open a Scratch buffer: >
+    nmap <Leader>ss <Plug>(itchy-open-scratch)
+<
+
+Open a Scratch buffer of the same filetype as the current buffer: >
+    nmap <Leader>sf <Plug>(itchy-open-same-filetype-scratch)
+<
+
+=============================================================================
 Options                                                       *itchy-options*
 
                                                       *'itchy_buffer_prefix'*
