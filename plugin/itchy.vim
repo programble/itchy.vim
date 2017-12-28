@@ -45,14 +45,17 @@ function! s:should_split_horiz()
 endf
 
 function! s:new_buffer(force_split, ...)
+  " Create a new scratch buffer.
+  " Single optional argument: scratch buffer's filetype. Can be a dot (.) to
+  " copy the current buffer's filetype.
+
   " Figure out the filetype
-  if a:0 <= 1
+  if a:0 < 1
     let file_type = ''
     let ft_command = ''
   else
-    let file_type = a:2
+    let file_type = a:1
     if file_type == '.'
-      " . means use the current filetype
       let file_type = &filetype
     endif
 
