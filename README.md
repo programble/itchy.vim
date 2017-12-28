@@ -1,3 +1,7 @@
+:warning: [idbrii's fork][idbrii] is probably more worth looking at.
+
+[idbrii]: https://github.com/idbrii/itchy.vim
+
 # Itchy
 
 Scratch buffers for Vim
