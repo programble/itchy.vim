@@ -101,4 +101,9 @@ else
   command! -nargs=? ScratchNoSplit call s:new_buffer(0, <f-args>)
 endif
 
+" Open a Scratch buffer
+nnoremap <Plug>(itchy-open-scratch) :Scratch<CR>
+" Open a Scratch buffer of the same filetype as the current buffer.
+nnoremap <Plug>(itchy-open-same-filetype-scratch) :exec 'Scratch '. &filetype<CR>
+
 " vim:et:ts=2 sw=2:
